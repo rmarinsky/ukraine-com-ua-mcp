@@ -45,7 +45,8 @@
     "lint:fix": "biome check --write src test",
     "format": "biome format --write src test",
     "test": "bun test",
-    "validate": "bun run typecheck && bun run lint && bun test"
+    "validate": "bun run typecheck && bun run lint && bun test",
+    "prepublishOnly": "bun run validate && bun run build"
   },
   "keywords": [
     "mcp",
