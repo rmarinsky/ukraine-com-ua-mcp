@@ -1,0 +1,71 @@
+{
+  "name": "@rmarinsky/ukraine-com-ua-mcp",
+  "version": "0.1.0",
+  "description": "Model Context Protocol (MCP) server for ukraine.com.ua / adm.tools — manage domains, DNS, and hosting from any MCP client (Claude Desktop, Claude Code, Cursor).",
+  "license": "MIT",
+  "author": "Roman Marinsky",
+  "homepage": "https://github.com/rmarinsky/ukraine-com-ua-mcp#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rmarinsky/ukraine-com-ua-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rmarinsky/ukraine-com-ua-mcp/issues"
+  },
+  "type": "module",
+  "main": "./dist/server.js",
+  "bin": {
+    "ukraine-com-ua-mcp": "./dist/server.js",
+    "ukraine-com-ua-mcp-cli": "./dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "src",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "bun": ">=1.1.0",
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "bun --watch src/server.ts",
+    "start": "bun run src/server.ts",
+    "cli": "bun run src/cli.ts",
+    "build": "bun run build:server && bun run build:cli",
+    "build:server": "bun build src/server.ts --target=bun --outfile=dist/server.js",
+    "build:cli": "bun build src/cli.ts --target=bun --outfile=dist/cli.js",
+    "compile": "bun run compile:darwin-arm64 && bun run compile:darwin-x64 && bun run compile:linux-x64",
+    "compile:darwin-arm64": "bun build --compile --target=bun-darwin-arm64 src/server.ts --outfile dist/ukraine-com-ua-mcp-darwin-arm64",
+    "compile:darwin-x64": "bun build --compile --target=bun-darwin-x64 src/server.ts --outfile dist/ukraine-com-ua-mcp-darwin-x64",
+    "compile:linux-x64": "bun build --compile --target=bun-linux-x64 src/server.ts --outfile dist/ukraine-com-ua-mcp-linux-x64",
+    "typecheck": "tsc --noEmit",
+    "lint": "biome check src test",
+    "lint:fix": "biome check --write src test",
+    "format": "biome format --write src test",
+    "test": "bun test",
+    "validate": "bun run typecheck && bun run lint && bun test"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "claude",
+    "ukraine.com.ua",
+    "adm.tools",
+    "dns",
+    "domains",
+    "hosting",
+    "registrar"
+  ],
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.18.0",
+    "@toon-format/toon": "^2.1.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@types/bun": "^1.1.13",
+    "typescript": "^5.6.3"
+  }
+}

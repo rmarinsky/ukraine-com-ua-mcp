@@ -1,0 +1,41 @@
+# dependencies
+node_modules
+bun.lockb
+
+# build
+dist
+*.tsbuildinfo
+
+# secrets
+.env
+.env.local
+.env.*.local
+
+# DNS zone snapshots (default backup dir; contains live record contents)
+dns-backups/
+
+# logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+admtools-requests.log
+
+# os
+.DS_Store
+Thumbs.db
+
+# editor
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.swp
+*.swo
+
+# coverage
+coverage
+*.lcov
+.nyc_output
+
+# bun
+.bun
