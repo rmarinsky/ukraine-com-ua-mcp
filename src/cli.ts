@@ -1,4 +1,4 @@
-#!/usr/bin/env bun
+#!/usr/bin/env node
 /**
  * Standalone CLI mirroring the MCP tools. Useful to debug the API without
  * spinning up an MCP client. Usage:
