@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+import { realpathSync } from "node:fs";
+import { fileURLToPath } from "node:url";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
@@ -578,8 +580,20 @@ async function main() {
 	await server.connect(transport);
 }
 
-const isMainModule = import.meta.url === `file://${process.argv[1]}`;
-if (isMainModule) {
+// `process.argv[1]` may be a symlink (npx puts a shim in `node_modules/.bin/`),
+// while `import.meta.url` resolves to the real file path — compare realpaths so
+// the entrypoint runs whether invoked directly or through a bin shim.
+function isInvokedAsScript(): boolean {
+	const entry = process.argv[1];
+	if (!entry) return false;
+	try {
+		return realpathSync(fileURLToPath(import.meta.url)) === realpathSync(entry);
+	} catch {
+		return false;
+	}
+}
+
+if (isInvokedAsScript()) {
 	main().catch((err) => {
 		console.error(`[${PACKAGE_NAME}] fatal:`, err);
 		process.exit(1);

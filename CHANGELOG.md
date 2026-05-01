@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.2] — 2026-05-01
+
+### Fixed
+
+- **MCP server exited silently when launched via `npx`.** The entry-point guard
+  compared `import.meta.url` against a `file://` URL built from `process.argv[1]`.
+  When `npx` invokes the bin through a symlink, those paths differ (the URL
+  resolves through the symlink while `argv[1]` does not), so `main()` never
+  ran and the process exited with code 0 immediately. Replaced with a
+  `realpathSync` comparison so the entrypoint runs whether invoked directly or
+  via a bin shim.
+
 ### Added
 
 - **`backup_dns_zone` tool** — snapshot a DNS zone to disk and return a SHA256

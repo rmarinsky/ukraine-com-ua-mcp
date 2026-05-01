@@ -1,6 +1,6 @@
 {
   "name": "@rmarinsky/ukraine-com-ua-mcp",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Model Context Protocol (MCP) server for ukraine.com.ua / adm.tools — manage domains, DNS, and hosting from any MCP client (Claude Desktop, Claude Code, Cursor).",
   "license": "MIT",
   "author": "Roman Marinsky",
