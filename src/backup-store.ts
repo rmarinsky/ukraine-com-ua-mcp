@@ -117,7 +117,13 @@ export class BackupStore {
 		}
 		const idPrefix = `${sanitizeId(domainId)}-`;
 		const hashSuffix = `-${backupId.slice(0, 12)}.json`;
-		const match = entries.find((name) => name.startsWith(idPrefix) && name.endsWith(hashSuffix));
+		// sort() on ISO-timestamp filenames picks the most recent when there are
+		// multiple backups with the same content hash (zone unchanged across sessions)
+		const match =
+			entries
+				.filter((name) => name.startsWith(idPrefix) && name.endsWith(hashSuffix))
+				.sort()
+				.at(-1) ?? null;
 		return match ? join(this.dir, match) : null;
 	}
 }
